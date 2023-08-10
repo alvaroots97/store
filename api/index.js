@@ -12,20 +12,20 @@ app.use(express.json());
 const whitelist = ['http://localhost:5500'];
 const options = {
   origin: (origin, callback) => {
-      if(whitelist.includes(origin)) {
+      if(whitelist.includes(origin) || !origin) {
         callback(null, true);
       } else {
         callback(new Error("Not allowed"));
       }
   }
 }
-app.use(cors());
+app.use(cors(options));
 
-app.get('/', (req, res) => {
+app.get('/api', (req, res) => {
   res.send("I'm Alvaro Alva");
 });
 
-app.get('/new-route', (req, res) => {
+app.get('/api/new-route', (req, res) => {
   res.send("I'm a new route");
 });
 
